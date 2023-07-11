@@ -13,4 +13,31 @@ CREATE DATABASE resource
     IS_TEMPLATE = False;
 
 
-hello
+DROP TABLE _user;
+
+CREATE TABLE _user (
+	_id SERIAL PRIMARY KEY,
+	_first_name VARCHAR(255) NOT NULL,
+	_last_name VARCHAR(255),
+	_phone VARCHAR(20),
+	_email VARCHAR(50),
+	_status VARCHAR(50),
+	_department VARCHAR(50),
+	_position VARCHAR(50),
+	_hired_date DATE,
+	_out_date DATE
+);
+
+CREATE TABLE _dayoff (
+	
+);
+
+-- Late, OT
+CREATE TABLE _timekeeping (
+	
+);
+
+CREATE TABLE _payroll (
+	_salary
+);
+
