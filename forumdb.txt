@@ -95,3 +95,51 @@ CREATE TABLE _follow (
 );
 
 
+UP, 17/07/23
+Content: cập nhật khóa ngoại postgresql
+CREATE TABLE _user (
+	user_id SERIAL PRIMARY KEY,
+	username VARCHAR(255)
+);
+
+CREATE TABLE _topic (
+	topic_id SERIAL PRIMARY KEY,
+	topic_name VARCHAR(255)
+);
+
+CREATE TABLE _keyword (
+	keyword_id SERIAL PRIMARY KEY,
+	keyword_content VARCHAR(255)
+);
+
+CREATE TABLE _post (
+	post_id SERIAL PRIMARY KEY,
+	topic_id INT NOT NULL,
+	user_id INT NOT NULL,
+	post_date DATE,
+	modified_date DATE,
+	title VARCHAR(255),
+	post_content VARCHAR(255),
+	FOREIGN KEY  (topic_id) REFERENCES _topic(topic_id),
+	FOREIGN KEY (user_id) REFERENCES _user(user_id)
+);
+
+CREATE TABLE _commment (
+	comment_id SERIAL PRIMARY KEY,
+	post_id INT NOT NULL,
+	user_id INT NOT NULL,
+	comment_level INT NOT NULL,
+	comment_content VARCHAR(255),
+	comment_date DATE,
+	comment_parent_id INT NOT NULL,
+	FOREIGN KEY (post_id) REFERENCES _post(post_id),
+	FOREIGN KEY (user_id) REFERENCES _user(user_id)
+);
+
+CREATE TABLE _follow (
+	follow_id SERIAL PRIMARY KEY, -- maybe removed
+	post_id INT NOT NULL,
+	user_id INT NOT NULL,
+	FOREIGN KEY (post_id) REFERENCES _post(post_id),
+	FOREIGN KEY (user_id) REFERENCES _user(user_id)
+);
