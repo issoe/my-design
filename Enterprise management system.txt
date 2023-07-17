@@ -1,0 +1,62 @@
+CREATE TABLE _user (
+	user_id SERIAL PRIMARY KEY,
+	username VARCHAR(255)
+);
+
+CREATE TABLE _topic (
+	topic_id SERIAL PRIMARY KEY,
+	topic_name VARCHAR(255)
+);
+
+CREATE TABLE _keyword (
+	keyword_id SERIAL PRIMARY KEY,
+	keyword_content VARCHAR(255)
+);
+
+CREATE TABLE _post (
+	post_id SERIAL PRIMARY KEY,
+	topic_id INT NOT NULL,
+	user_id INT NOT NULL,
+	post_date DATE,
+	modified_date DATE,
+	title VARCHAR(255),
+	post_content VARCHAR(255),
+	FOREIGN KEY (topic_id) REFERENCES _topic(topic_id),
+	FOREIGN KEY (user_id) REFERENCES _user(user_id)
+);
+
+CREATE TABLE _comment (
+	comment_id SERIAL PRIMARY KEY,
+	post_id INT NOT NULL,
+	user_id INT NOT NULL,
+	comment_level INT NOT NULL,
+	comment_content VARCHAR(255),
+	comment_date DATE,
+	FOREIGN KEY (post_id) REFERENCES _post(post_id),
+	FOREIGN KEY (user_id) REFERENCES _user(user_id)
+);
+
+CREATE TABLE _follow (
+	follow_id SERIAL PRIMARY KEY, -- maybe removed
+	post_id INT NOT NULL,
+	user_id INT NOT NULL
+);
+
+INSERT INTO _user (username) 
+VALUES 	('pham'), ('quang'), ('khanh');
+
+INSERT INTO _topic (topic_name) 
+VALUES 	('recruitment'), ('entertainment'), ('work');
+
+INSERT INTO _keyword (keyword_content) 
+VALUES 	('sql'), ('c++'), ('python'), ('latex');
+
+INSERT INTO _post (topic_id, user_id, post_date, modified_date, title, post_content)
+VALUES 	(1, 1, '2023-02-02', '2023-02-02', 'recruitment 1', 'im hiring one automation tester'),
+		(2, 2, '2023-02-02', '2023-02-02', 'a little funny', 'a vacation in last year maybe good');
+		
+INSERT INTO _comment (post_id, user_id, comment_level, comment_content, comment_date)
+VALUES 	(1, 1, 1, 'nice', '2023-11-11'),
+		(1, 2, 1, 'nice', '2023-11-11'),
+		(2, 1, 1, 'nice', '2023-11-11'),
+		(2, 2, 1, 'nice', '2023-11-11');
